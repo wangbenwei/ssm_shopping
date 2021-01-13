@@ -1,23 +1,25 @@
 package com.NetEase.controller;
 
+import com.NetEase.pojo.Orders;
 import com.NetEase.pojo.Product;
 import com.NetEase.pojo.User;
+import com.NetEase.service.OrdersService;
 import com.NetEase.service.ProductService;
 import com.NetEase.service.UserService;
+import com.alibaba.fastjson.JSON;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.File;
+import java.util.Date;
 import java.util.List;
+
 
 @Controller
 @RequestMapping("")
@@ -26,6 +28,8 @@ public class ForeController {
     ProductService productService;
     @Autowired
     UserService userService;
+    @Autowired
+    OrdersService ordersService;
 
     @RequestMapping("admin_product_list")
     public String list(Model model) {
@@ -115,4 +119,52 @@ public class ForeController {
         //return "{\"name\":\"BeJson\",\"result\":\"" + 123 + "\",\"page\":88,\"isNonProfit\":true}";
         return "{\"name\":\"BeJson\",\"result\":\"uploadFile/" + fileName + "\",\"page\":88,\"isNonProfit\":true}";
     }
+
+    @RequestMapping(value = "settleAccount", method = RequestMethod.POST, headers = {"content-type=application/json"})
+    @ResponseBody
+    public String settleAccount(@RequestBody String shoppingCartJSON) {
+        System.out.println(shoppingCartJSON);
+        List<Orders> list = JSON.parseArray(shoppingCartJSON, Orders.class);
+        for (Orders o : list) {
+            o.setCreateDate(new Date());
+            //System.out.println(o.toString());
+        }
+        List<Orders> ordersList = ordersService.list();
+        //System.out.println(ordersList.size());
+        for (int i = list.size() - 1; i >= 0; i--) {
+            Orders o = list.get(i);
+            boolean flag = false;
+            for (Orders ol : ordersList) {
+                if (o.getPid().intValue() == ol.getPid().intValue()) {
+                    ol.setNumber(ol.getNumber() + o.getNumber());
+                    ol.setCreateDate(new Date());
+                    ordersService.update(ol);
+                    flag = true;
+                    break;
+                }
+            }
+            if (flag) {
+                list.remove(o);
+            }
+        }
+        //System.out.println(list.size());
+        for (Orders o : list) {
+            o.setCreateDate(new Date());
+            ordersService.add(o);
+        }
+        return "{\"name\":\"BeJson\",\"code\":\"200\",\"page\":88,\"isNonProfit\":true}";
+    }
+
+    @RequestMapping("accountPage")
+    public String account(Model model) {
+        List<Orders> orders = ordersService.list();
+        int totalPrice = 0;
+        for (Orders o : orders) {
+            totalPrice = totalPrice + o.getNumber() * o.getProduct().getPrice();
+        }
+        model.addAttribute("o", orders);
+        model.addAttribute("price", totalPrice);
+        return "admin/account";
+    }
+
 }

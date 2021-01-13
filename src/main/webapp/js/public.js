@@ -57,7 +57,7 @@
                     form.append('file', file, file.name);
                     form.enctype = "multipart/form-data";
                     var xhr = new XMLHttpRequest();
-                    xhr.open("post", "http://localhost:8090/ssm_shopping/upload", true);
+                    xhr.open("post", "upload", true);
                     xhr.onload = function () {
                         if (xhr.status === 200) {
                             alert("文件上传成功");

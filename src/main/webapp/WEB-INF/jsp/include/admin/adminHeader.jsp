@@ -53,7 +53,7 @@
         <ul class="nav">
             <c:if test="${!empty user}">
                 <c:if test="${user.category eq 'buyer'}">
-                    <a href="logout">购物车</a>
+                    <a href="shoppingCart">购物车</a>
                 </c:if>
             </c:if>
         </ul>
@@ -61,7 +61,7 @@
         <ul class="nav">
             <c:if test="${!empty user}">
                 <c:if test="${user.category eq 'buyer'}">
-                    <a href="logout">账目</a>
+                    <a href="accountPage">账目</a>
                 </c:if>
             </c:if>
         </ul>

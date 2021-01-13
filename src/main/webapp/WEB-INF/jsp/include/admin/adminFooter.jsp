@@ -10,6 +10,7 @@
 <script type="text/javascript" src="js/md55.js"></script>
 <script type="text/javascript" src="js/pageLogin.js"></script>
 <script type="text/javascript" src="js/public.js"></script>
+<script type="text/javascript" src="js/settleAccount.js"></script>
 
 </body>
 </html>

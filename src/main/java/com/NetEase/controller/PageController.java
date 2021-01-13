@@ -16,4 +16,12 @@ public class PageController {
     public String publishPage() {
         return "admin/publish";
     }
+
+
+    @RequestMapping("shoppingCart")
+    public String shoppingCart() {
+        return "admin/shoppingCart";
+    }
+
+
 }
