@@ -7,6 +7,7 @@
 
 <script type="text/javascript" src="js/global.js"></script>
 <script type="text/javascript" src="js/pageShow.js"></script>
+<script type="text/javascript" src="js/pageIndex.js"></script>
 <script type="text/javascript" src="js/md55.js"></script>
 <script type="text/javascript" src="js/pageLogin.js"></script>
 <script type="text/javascript" src="js/public.js"></script>

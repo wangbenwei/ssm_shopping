@@ -17,14 +17,32 @@
                 <span class="v-unit">¥</span><span class="v-value">${p.price}</span>
             </div>
             <!-- 这里要区分买家和卖家，这里还没有做-->
-            <div class="num">购买数量：<span id="plusNum" class="lessNum"><a>-</a></span><span class="totalNum"
-                                                                                          id="allNum">0</span><span
-                    id="addNum" class="moreNum"><a>+</a></span></div>
+            <c:if test="${!empty user}">
+                <!-- 买家-->
+                <c:if test="${user.category eq 'buyer'}">
+                    <div class="num">购买数量：<span id="plusNum" class="lessNum"><a>-</a></span><span class="totalNum"
+                                                                                                  id="allNum">0</span><span
+                            id="addNum" class="moreNum"><a>+</a></span>
+                    </div>
+                </c:if>
+
+                <!-- 卖家-->
+                <c:if test="${user.category eq 'seller'}">
+                    <div class="num">
+                        <c:if test="${!empty p.orders}">售出数量：${p.orders.number}</c:if>
+                        <c:if test="${empty p.orders}">未售出</c:if>
+                    </div>
+                </c:if>
+            </c:if>
+
+
             <div class="oprt f-cb">
                 <!-- 卖家部分-->
                 <c:if test="${user.category eq 'seller'}">
                     <a href="propertyEditor?pid=${p.id}" class="u-btn u-btn-primary">编 辑</a>
+                    <!--
                     <a href="delete?pid=${p.id}" onclick="return del()" class="u-btn u-btn-primary">删 除</a>
+                    -->
                 </c:if>
 
                 <!-- 买家部分-->

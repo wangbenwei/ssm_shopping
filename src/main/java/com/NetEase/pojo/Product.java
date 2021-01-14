@@ -7,6 +7,15 @@ public class Product {
     private Integer price;
     private String detail;
     private String picture;
+    private Orders orders;
+
+    public Orders getOrders() {
+        return orders;
+    }
+
+    public void setOrders(Orders orders) {
+        this.orders = orders;
+    }
 
     public String getPicture() {
         return picture;

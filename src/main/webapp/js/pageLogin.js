@@ -11,16 +11,17 @@
         init: function () {
             loginForm.addEventListener('submit', function (e) {
                 if (!isSubmiting && this.check()) {
-                    var value1 = username.value;
+                    var value1 = userName.value;
                     var value2 = md5(password.value);
                     isSubmiting = true;
                     loading.show();
                     ajax({
                         data: {userName: value1, password: value2},
-                        url: '/foreLogin',
+                        url: 'foreLogin',
                         success: function (message) {
                             loading.hide();
-                            location.href = '/';
+                            //location.href = "loginUser?username=" + value1 + "&password=" + value2;
+                            location.href = 'admin_product_list';
                         },
                         error: function () {
                             loading.result('登录失败');

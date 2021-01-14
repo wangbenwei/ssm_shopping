@@ -34,6 +34,11 @@ public class OrdersServiceImpl implements OrdersService {
         ordersMapper.add(o);
     }
 
+    @Override
+    public Orders get(int pid) {
+        return ordersMapper.get(pid);
+    }
+
     public void setProduct(List<Orders> ordersList) {
         for (Orders ol : ordersList) {
             setProduct(ol);

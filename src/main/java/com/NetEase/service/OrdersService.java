@@ -10,4 +10,6 @@ public interface OrdersService {
     void update(Orders o);
 
     void add(Orders o);
+
+    Orders get(int pid);
 }

@@ -15,4 +15,8 @@
     <insert id="add" keyProperty="id" useGeneratedKeys="true" parameterType="com.NetEase.pojo.Orders">
         insert into orders (pid, number, createDate) values (#{pid}, #{number}, #{createDate,jdbcType=TIMESTAMP})
     </insert>
+
+    <select id="get" resultType="com.NetEase.pojo.Orders">
+        select * from orders where pid=#{pid}
+    </select>
 </mapper>

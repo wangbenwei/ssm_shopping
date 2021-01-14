@@ -6,20 +6,19 @@
 
 <%@include file="../include/admin/adminHeader.jsp" %>
 
-<script>
-    if ("${msg}" == "账号密码错误") {
-        alert("${msg}");
-    }
-</script>
+<%--<script>--%>
+<%--if ("${msg}" == "账号密码错误") {--%>
+<%--alert("${msg}");--%>
+<%--}--%>
+<%--</script>--%>
 
 <title>shopping</title>
 <!-- onsubmit是在表单提交时触发的事件, 没有搞懂怎么弄-->
 
-<form class="m-form m-form-ht n-login" id="loginForm" autocomplete="off" action="foreLogin" method="post"
-      autocomplete="off">
+<%--<form class="m-form m-form-ht n-login" id="loginForm" autocomplete="off" action="foreLogin" method="post"--%>
+<%--autocomplete="off">--%>
 
-    <%--<form class="m-form m-form-ht n-login" id="loginForm" autocomplete="off" onsubmit="return false"--%>
-    <%--autocomplete="off">--%>
+<form class="m-form m-form-ht n-login" id="loginForm" autocomplete="off" onsubmit="return false">
 
     <div class="fmitem">
         <label class="fmlab">用户名：</label>

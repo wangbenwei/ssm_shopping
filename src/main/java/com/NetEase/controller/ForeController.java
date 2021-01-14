@@ -34,34 +34,72 @@ public class ForeController {
     @RequestMapping("admin_product_list")
     public String list(Model model) {
         List<Product> ps = productService.list();
+        for (Product p : ps) {
+            p.setOrders(ordersService.get(p.getId()));
+        }
         model.addAttribute("ps", ps);
         return "admin/listProduct";
+    }
+
+    @RequestMapping("unPunchased_list")
+    public String unPunchasedList(Model model) {
+        List<Product> ps = productService.list();
+        for (int i = ps.size() - 1; i >= 0; i--) {
+            Orders o = ordersService.get(ps.get(i).getId());
+            if (o != null) {
+                ps.remove(i);
+            }
+            model.addAttribute("ps", ps);
+        }
+        return "admin/listProduct_unPunchased";
     }
 
     @RequestMapping("detail_product")
     public String product(int pid, Model model) {
         Product p = productService.get(pid);
+        p.setOrders(ordersService.get(p.getId()));
         model.addAttribute("p", p);
         return "admin/detailProduct";
     }
 
-    @RequestMapping(value = "foreLogin", method = RequestMethod.POST)
-    //@ResponseBody
-    public String login(@RequestParam("userName") String username, @RequestParam("password") String password, Model model, HttpSession session) {
-        User user = userService.get(username, password);
-        if (null == user) {
-            model.addAttribute("msg", "账号密码错误");
-            return "admin/login";
-        }
-        session.setAttribute("user", user);
-        return "redirect:admin_product_list";
-
+//    @RequestMapping(value = "foreLogin", method = RequestMethod.POST)
+//    //@ResponseBody
+//    public String login(@RequestParam("userName") String username, @RequestParam("password") String password, Model model, HttpSession session) {
+//        User user = userService.get(username, password);
 //        if (null == user) {
-//            return "error";
+//            model.addAttribute("msg", "账号密码错误");
+//            return "admin/login";
 //        }
 //        session.setAttribute("user", user);
-//        return "success";
+//        return "redirect:admin_product_list";
+//
+////        if (null == user) {
+////            return "error";
+////        }
+////        session.setAttribute("user", user);
+////        return "success";
+//    }
+
+    @RequestMapping(value = "foreLogin", method = RequestMethod.POST)
+    @ResponseBody
+    public String login(HttpSession session, HttpServletRequest request) {
+        String username = request.getParameter("userName");
+        String password = request.getParameter("password");
+        User user = userService.get(username, password);
+        session.setAttribute("user", user);
+        if (null == user) {
+            return "{\"message\":\"fuck\",\"code\":500}";
+        } else {
+            return "{\"result\":true,\"code\":200}";
+        }
     }
+
+//    @RequestMapping(value = "loginUser")
+//    public String loginUser(@RequestParam("username") String username, @RequestParam("password") String password, HttpSession session) {
+//        User user = userService.get(username, password);
+//        session.setAttribute("user", user);
+//        return "redirect:admin_product_list";
+//    }
 
     @RequestMapping("logout")
     public String logout(HttpSession session) {
@@ -90,10 +128,12 @@ public class ForeController {
         return "admin/editorPublish";
     }
 
-    @RequestMapping("delete")
-    public String delete(int pid) {
-        productService.delete(pid);
-        return "redirect:admin_product_list";
+    @RequestMapping(value = "deleteProduct", method = RequestMethod.POST)
+    @ResponseBody
+    public String delete(HttpServletRequest request) {
+        String pid = request.getParameter("id");
+        productService.delete(Integer.parseInt(pid));
+        return "{\"result\":true,\"code\":200,\"message\":\"Delete success\"}";
     }
 
     @RequestMapping(value = "upload", method = RequestMethod.POST)
