@@ -29,7 +29,8 @@
             <th align="right">内容名称</th>
             <th align="right">购买时间</th>
             <th align="right">购买数量</th>
-            <th align="right">购买价格</th>
+            <th align="right">购买单价</th>
+            <th align="right">购买总价</th>
         </tr>
         </thead>
         <tbody>
@@ -40,13 +41,14 @@
                 <td><span class="v-time">${o.createDate}</span></td>
                 <td><span class="v-num">${o.number}</span></td>
                 <td><span class="v-unit">¥</span><span class="value">${o.product.price}</span></td>
+                <td><span class="v-unit">¥</span><span class="value">${o.product.price*o.number}</span></td>
             </tr>
         </c:forEach>
         </tbody>
 
         <tfoot>
         <tr>
-            <td colspan="4">
+            <td colspan="5"><!-- 这里的数字5代表这一行是把5列合并成一列（只对这一行起作用）-->
                 <div class="total">总计：</div>
             </td>
             <td><span class="v-unit">¥</span><span class="value">${price}</span></td>
