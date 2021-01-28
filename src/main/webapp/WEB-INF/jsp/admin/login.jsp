@@ -12,8 +12,8 @@
 <%--}--%>
 <%--</script>--%>
 
-<title>shopping</title>
-<!-- onsubmit是在表单提交时触发的事件, 没有搞懂怎么弄-->
+<title>王本巍大作业</title>
+<!-- onsubmit是在表单提交时触发的事件-->
 
 <%--<form class="m-form m-form-ht n-login" id="loginForm" autocomplete="off" action="foreLogin" method="post"--%>
 <%--autocomplete="off">--%>

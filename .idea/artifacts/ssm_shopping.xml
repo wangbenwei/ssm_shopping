@@ -1,0 +1,10 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="ssm_shopping">
+    <output-path>$PROJECT_DIR$/out/artifacts/ssm_shopping</output-path>
+    <root id="archive" name="ssm_shopping.jar">
+      <element id="directory" name="META-INF">
+        <element id="file-copy" path="$USER_HOME$/Desktop/META-INF/MANIFEST.MF" />
+      </element>
+    </root>
+  </artifact>
+</component>

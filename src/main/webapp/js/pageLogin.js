@@ -18,13 +18,12 @@
                     ajax({
                         data: {userName: value1, password: value2},
                         url: 'foreLogin',
-                        success: function (message) {
+                        success: function () {
                             loading.hide();
-                            //location.href = "loginUser?username=" + value1 + "&password=" + value2;
                             location.href = 'admin_product_list';
                         },
                         error: function () {
-                            loading.result('登录失败');
+                            loading.result("登陆失败");
                             isSubmiting = false;
                         }
                     });

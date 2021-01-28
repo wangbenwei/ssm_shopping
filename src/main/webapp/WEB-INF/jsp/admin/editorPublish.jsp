@@ -5,7 +5,7 @@
 <%@ taglib prefix="p" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@include file="../include/admin/adminHeader.jsp" %>
 
-<title>shopping</title>
+<title>王本巍大作业</title>
 
 <div class="g-doc">
     <div class="m-tab m-tab-fw m-tab-simple f-cb">

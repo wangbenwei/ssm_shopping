@@ -30,10 +30,10 @@
 
         <c:if test="${!empty user}">
             <c:if test="${user.category eq 'seller'}">
-                <a href="loginPage">卖家您好，${user.username}！</a>
+                卖家您好，${user.username}！
             </c:if>
             <c:if test="${user.category eq 'buyer'}">
-                <a href="loginPage">买家您好，${user.username}！</a>
+                买家您好，${user.username}！
             </c:if>
             <a href="logout">[退出]</a>
         </c:if>
