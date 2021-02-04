@@ -126,7 +126,7 @@ public class ForeController {
 
     //卖家登陆后对未售出的商品进行删除
     //根据前台传过来的pid在数据库中进行删除
-    //这个功能是需要和前台的ajax配合异步完成
+    //这个功能是需要和前台的ajax配合异步完成，前端接收的是json数据
     @RequestMapping(value = "deleteProduct", method = RequestMethod.POST)
     @ResponseBody
     public String delete(HttpServletRequest request) {
@@ -140,6 +140,7 @@ public class ForeController {
     // 无论哪种方式都会在点击商品发布时将各个信息注入到product对象中，对于product对象的picture属性，从网络上传保存的是网络图片的url，而通过本地上传保存的是在服务器中保存图片的位置）
     //而将图片保存到服务器中的对应位置就是由下面方法完成的
     //通过MultipartFile接受前台来的文件，然后将其存入服务器的uploadFile文件夹中，并以其名字命名，这个名字和数据库中商品详情中picture存的保持一致
+    //前端要返回一个json类型的值，这个值指代的是图片存储的地址
     @RequestMapping(value = "upload", method = RequestMethod.POST)
     @ResponseBody
     public String upload(@RequestParam(value = "file", required = true) MultipartFile file, HttpServletRequest request,
