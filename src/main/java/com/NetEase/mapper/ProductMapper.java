@@ -14,4 +14,6 @@ public interface ProductMapper {
     void update(Product product);
 
     void delete(int pid);
+
+    Product search(String productName);
 }

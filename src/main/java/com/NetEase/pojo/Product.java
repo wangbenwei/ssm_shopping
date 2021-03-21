@@ -1,5 +1,7 @@
 package com.NetEase.pojo;
 
+import java.util.List;
+
 public class Product {
     private Integer id;
     private String name;
@@ -8,6 +10,16 @@ public class Product {
     private String detail;
     private String picture;
     private Orders orders;
+
+    public List<Comment> getComments() {
+        return comments;
+    }
+
+    public void setComments(List<Comment> comments) {
+        this.comments = comments;
+    }
+
+    private List<Comment> comments;
 
     public Orders getOrders() {
         return orders;

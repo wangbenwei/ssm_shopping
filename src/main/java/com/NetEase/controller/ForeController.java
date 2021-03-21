@@ -1,8 +1,10 @@
 package com.NetEase.controller;
 
+import com.NetEase.pojo.Comment;
 import com.NetEase.pojo.Orders;
 import com.NetEase.pojo.Product;
 import com.NetEase.pojo.User;
+import com.NetEase.service.CommentService;
 import com.NetEase.service.OrdersService;
 import com.NetEase.service.ProductService;
 import com.NetEase.service.UserService;
@@ -12,6 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -30,6 +33,8 @@ public class ForeController {
     UserService userService;
     @Autowired
     OrdersService ordersService;
+    @Autowired
+    CommentService commentService;
 
     //商城首页展示页面（对应：WEB-INF\jsp\admin\listProduct.jsp）
     //展示所有的商品。取出所有商品的信息，并将每个商品对应的订单信息注入到商品对象中（为了在首页展示是否售出）
@@ -66,6 +71,7 @@ public class ForeController {
     public String product(int pid, Model model) {
         Product p = productService.get(pid);
         p.setOrders(ordersService.get(p.getId()));
+        p.setComments(commentService.get(pid));
         model.addAttribute("p", p);
         return "admin/detailProduct";
     }
@@ -216,4 +222,37 @@ public class ForeController {
         return "admin/account";
     }
 
+    //搜索功能
+    //如果存在这个商品，就直接定位到这个商品的详情页，如果没有商品，就显示您要的xx商品还没有上架
+    @RequestMapping(value = "foresearch", method = RequestMethod.POST)
+    public String search(@RequestParam("keyword") String str, Model model, RedirectAttributes ra) {
+        //System.out.println(str);
+        Product p = productService.search(str);
+        if (p != null) {
+//            p.setOrders(ordersService.get(p.getId()));
+//            model.addAttribute("p", p);
+//            return "admin/detailProduct";
+            ra.addAttribute("pid", p.getId());
+            return "redirect:detail_product";
+        } else {
+            model.addAttribute("msg", str);
+            return "admin/notListed";
+        }
+    }
+
+    //在账单界面点击评价，就跳转到评价界面，因为在评价界面要显示商品的基本信息，所以要从账单界面把pid带过来
+    @RequestMapping("comment")
+    public String comment(int pid, Model model) {
+        Product p = productService.get(pid);
+        model.addAttribute("p", p);
+        return "admin/comment";
+    }
+
+    //接受评价界面传过来的信息
+    @RequestMapping("submitComment")
+    public String submitComment(Comment comment, Model model) {
+        commentService.add(comment);
+        model.addAttribute("pid", comment.getPid());
+        return "admin/commentSuccess";
+    }
 }

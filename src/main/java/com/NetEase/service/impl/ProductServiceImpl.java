@@ -36,4 +36,10 @@ public class ProductServiceImpl implements ProductService {
     public void delete(int pid) {
         productMapper.delete(pid);
     }
+
+    public Product search(String productName) {
+        return productMapper.search(productName);
+    }
+
+    ;
 }

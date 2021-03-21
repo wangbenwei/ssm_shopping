@@ -18,6 +18,7 @@ public class OrdersServiceImpl implements OrdersService {
     @Autowired
     ProductService productService;
 
+    @Override
     public List<Orders> list() {
         List<Orders> ordersList = ordersMapper.list();
         setProduct(ordersList);
