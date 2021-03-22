@@ -12,7 +12,7 @@
     <div class="n-show f-cb" id="showContent">
         <div class="img"><img src="${p.picture}" alt=""></div>
         <div class="cnt">
-            <h2 style="font-size: 32px">${p.name}</h2>
+            <h2 style="font-size: 28px">${p.name}</h2>
             <p class="summary">${p.subTitle}</p>
             <div class="price">
                 <span class="v-unit">¥</span><span class="v-value">${p.price}</span>
@@ -57,14 +57,14 @@
         </div>
     </div>
     <div class="m-tab m-tab-fw m-tab-simple f-cb">
-        <h2 style="font-size: 26px">详细信息</h2>
+        <h2 style="font-size: 22px">详细信息</h2>
     </div>
     <div class="n-detail">
         ${p.detail}
     </div>
     <br><br>
     <div class="m-tab m-tab-fw m-tab-simple f-cb">
-        <h2 style="font-size: 26px">商品评价</h2>
+        <h2 style="font-size: 22px">商品评价</h2>
     </div>
     <c:forEach items="${p.comments}" var="pComment">
         <div class="n-detail">
